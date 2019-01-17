@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class ShoppingMall(models.Model):
+class Mall(models.Model):
     mall_name = models.CharField(max_length=50)
     estd = models.IntegerField()
     about = models.CharField(max_length=1000)
@@ -12,12 +12,15 @@ class ShoppingMall(models.Model):
 
 
 class Shop(models.Model):
-    shopping_mall = models.ForeignKey(ShoppingMall, on_delete=models.CASCADE)
+    shopping_mall = models.ForeignKey(Mall, on_delete=models.CASCADE)
     shop_name = models.CharField(max_length=50)
     age = models.FloatField(default=0)
     type = models.CharField(max_length=50)
     owner = models.CharField(max_length=50)
     shop_rating = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.shop_name
 
 
 class Product(models.Model):
@@ -25,4 +28,7 @@ class Product(models.Model):
     product_name = models.CharField(max_length=50)
     price = models.FloatField(default=0)
     rating = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.product_name
 
