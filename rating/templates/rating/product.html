@@ -1,0 +1,7 @@
+<h1>{{ shopp.shop_name }}</h1>
+
+<ul>
+{% for product in shopp.product_set.all %}
+    <li>{{ product.product_name }}</li>
+{% endfor %}
+</ul>

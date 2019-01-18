@@ -1,0 +1,9 @@
+{% if mall_list %}
+    <ul>
+    {% for mall in mall_list %}
+        <li><a href="/rating/{{ mall.id }}/mall">{{ mall.mall_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No Malls are available.</p>
+{% endif %}

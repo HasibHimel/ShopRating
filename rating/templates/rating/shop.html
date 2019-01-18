@@ -1,0 +1,12 @@
+<h1>{{ mall.mall_name }}</h1>
+<h3>since {{ mall.estd }}</h3>
+<h2>Rating: {{ mall.mall_rating }}/5</h2>
+<button type="button">Rate Me!</button>
+
+<br><br>{{mall.about}}</br>
+
+<ul>
+{% for shop in mall.shop_set.all %}
+    <li><a href="/rating/{{ shop.id }}/shop">{{ shop.shop_name }}</a></li>
+{% endfor %}
+</ul>
