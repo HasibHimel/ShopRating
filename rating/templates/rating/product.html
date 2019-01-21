@@ -1,10 +1,14 @@
 <h1>{{ shopp.shop_name }}</h1>
+<h2>Rating: {{ shopp.shop_rating }}/5</h2>
 
-<input type="text", name="rate",>
-<button type="button" >Rate Me!</button>
+<form action="{% url 'rate_shop' shopp.id %}" method="post">
+{% csrf_token %}
+<input type="text", name="rate_shop",>
+<input type="submit", value="Rate This!">
+</form>
 
 <ul>
 {% for product in shopp.product_set.all %}
-    <li><a href="/rating/{{ product.id }}/product">{{ product.product_name }}</a></li>
+    <li><a href="{% url 'detail' product.id %}">{{ product.product_name }}</a></li>
 {% endfor %}
 </ul>

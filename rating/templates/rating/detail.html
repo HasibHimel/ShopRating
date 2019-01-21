@@ -4,5 +4,8 @@
 <h2>Rating: {{ productt.product_rating }}/5</h2>
 
 
-<input type="text", name="rate",>
-<button type="button" >Rate Me!</button>
+<form action="{% url 'rate_product' productt.id %}" method="post">
+{% csrf_token %}
+<input type="text", name="rate_product",>
+<input type="submit", value="Rate This!">
+</form>
