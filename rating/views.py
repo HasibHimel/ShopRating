@@ -25,7 +25,14 @@ def product(request, shop_id):
     try:
         shopp = Shop.objects.get(pk=shop_id)
     except Shop.DoesNotExist:
-        raise Http404("Shop does not exit")
+        raise Http404("Shop does not exist")
     return render(request, 'rating/product.html', {'shopp': shopp})
 
+
+def detail(request, product_id):
+    try:
+        productt = Product.objects.get(pk=product_id)
+    except Product.DoesNotExit:
+        raise Http404("Product does not exist")
+    return render(request, 'rating/detail.html', {'productt': productt})
 
