@@ -1,7 +1,10 @@
 <h1>{{ shopp.shop_name }}</h1>
 
+<input type="text", name="rate",>
+<button type="button" >Rate Me!</button>
+
 <ul>
 {% for product in shopp.product_set.all %}
-    <li>{{ product.product_name }}</li>
+    <li><a href="/rating/{{ product.id }}/product">{{ product.product_name }}</a></li>
 {% endfor %}
 </ul>
