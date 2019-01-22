@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404,HttpResponseRedirect
+from django.urls import reverse
+
 from .models import Mall, Shop, Product
 
 
@@ -35,4 +37,53 @@ def detail(request, product_id):
     except Product.DoesNotExit:
         raise Http404("Product does not exist")
     return render(request, 'rating/detail.html', {'productt': productt})
+
+
+def rate_mall(request, mall_id):
+    mall = get_object_or_404(Mall, pk=mall_id)
+    divisor = mall.rate_counter
+    total_rating = mall.mall_rating * divisor
+    rating = request.POST['rate_mall']
+    new_total_rating = total_rating + float(rating)
+    new_rating = new_total_rating/(divisor+1)
+    mall.rate_counter += 1
+    mall.mall_rating = new_rating
+    mall.save()
+
+    return HttpResponseRedirect(reverse('shop', args=(mall.id,)))
+
+
+def rate_shop(request, shop_id):
+    shopp = get_object_or_404(Shop, pk=shop_id)
+    divisor = shopp.rate_counter
+    total_rating = shopp.shop_rating * divisor
+    rating = request.POST['rate_shop']
+    new_total_rating = total_rating + float(rating)
+    new_rating = new_total_rating/(divisor+1)
+    shopp.rate_counter += 1
+    shopp.shop_rating = new_rating
+    shopp.save()
+
+    return HttpResponseRedirect(reverse('product', args=(shopp.id,)))
+
+
+def rate_product(request, product_id):
+
+    productt = get_object_or_404(Product, pk=product_id)
+    rating = float(request.POST['rate_product'])
+
+    divisor = productt.rate_counter
+    total_rating = productt.product_rating * divisor
+    new_total_rating = total_rating + rating
+    new_rating = new_total_rating/(divisor+1)
+    productt.rate_counter += 1
+    productt.product_rating = new_rating
+    productt.save()
+
+    return HttpResponseRedirect(reverse('detail', args=(productt.id,)))
+
+
+
+
+
 
