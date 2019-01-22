@@ -13,7 +13,8 @@
     <title>{{ shopp.shop_name }}</title>
   </head>
   <body>
-    <h1>{{ shopp.shop_name }}</h1>
+
+<h1>{{ shopp.shop_name }}</h1>
 <h2>Rating: {{ shopp.shop_rating }}/5</h2>
 
 <form action="{% url 'rate_shop' shopp.id %}" method="post">
@@ -22,7 +23,9 @@
 <input type="submit", value="Rate This!">
 </form>
 
+
 <h1>Product List</h1>
+
 
 <ul>
 {% for product in shopp.product_set.all %}
